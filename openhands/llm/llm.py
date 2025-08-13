@@ -234,7 +234,7 @@ class LLM(RetryMixin, DebugMixin):
             kwargs['temperature'] = 1.0
             kwargs['reasoning_effort'] = 'high'
             kwargs.pop('max_tokens')
-            kwargs.pop('stop')
+            print("kwargs", kwargs)
 
         # Add safety settings for models that support them
         if 'mistral' in self.config.model.lower() and self.config.safety_settings:
