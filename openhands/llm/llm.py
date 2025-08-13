@@ -231,6 +231,8 @@ class LLM(RetryMixin, DebugMixin):
         # Fix gpt-5 issue
         if 'gpt-5' in self.config.model:
             kwargs['max_completion_tokens'] = self.config.max_output_tokens
+            kwargs['temperature'] = 1.0
+            kwargs['reasoning_effort'] = 'high'
             kwargs.pop('max_tokens')
 
         # Add safety settings for models that support them
