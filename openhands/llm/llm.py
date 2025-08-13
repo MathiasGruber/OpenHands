@@ -233,7 +233,6 @@ class LLM(RetryMixin, DebugMixin):
             kwargs['max_completion_tokens'] = self.config.max_output_tokens
             kwargs['temperature'] = 1.0
             kwargs['reasoning_effort'] = 'high'
-            kwargs['drop_params'] = True
             kwargs.pop('max_tokens')
 
         # Add safety settings for models that support them
@@ -252,7 +251,7 @@ class LLM(RetryMixin, DebugMixin):
             api_version=self.config.api_version,
             custom_llm_provider=self.config.custom_llm_provider,
             timeout=self.config.timeout,
-            drop_params=self.config.drop_params,
+            drop_params=True,
             seed=self.config.seed,
             **kwargs,
         )
