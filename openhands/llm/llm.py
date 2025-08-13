@@ -233,8 +233,8 @@ class LLM(RetryMixin, DebugMixin):
             kwargs['max_completion_tokens'] = self.config.max_output_tokens
             kwargs['temperature'] = 1.0
             kwargs['reasoning_effort'] = 'high'
+            kwargs['drop_params'] = True
             kwargs.pop('max_tokens')
-            print("kwargs", kwargs)
 
         # Add safety settings for models that support them
         if 'mistral' in self.config.model.lower() and self.config.safety_settings:
