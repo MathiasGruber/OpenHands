@@ -251,7 +251,7 @@ class LLM(RetryMixin, DebugMixin):
             api_version=self.config.api_version,
             custom_llm_provider=self.config.custom_llm_provider,
             timeout=self.config.timeout,
-            drop_params=True,
+            drop_params=self.config.drop_params,
             seed=self.config.seed,
             **kwargs,
         )
@@ -315,6 +315,7 @@ class LLM(RetryMixin, DebugMixin):
                 # add stop words if the model supports it and stop words are not disabled
                 if (
                     self.config.model not in MODELS_WITHOUT_STOP_WORDS
+                    and 'gpt-5' not in self.config.model
                     and not self.config.disable_stop_word
                 ):
                     kwargs['stop'] = STOP_WORDS
