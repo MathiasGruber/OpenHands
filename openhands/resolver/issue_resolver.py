@@ -150,6 +150,7 @@ class IssueResolver:
             args.runtime_container_image,
             args.is_experimental,
             args.runtime,
+            args.max_budget_per_task,
         )
 
         self.owner = owner
@@ -184,11 +185,12 @@ class IssueResolver:
         runtime_container_image: str | None,
         is_experimental: bool,
         runtime: str | None = None,
+        max_budget_per_task: float = 0.0,
     ) -> OpenHandsConfig:
         config.default_agent = 'CodeActAgent'
         # Use provided runtime or fallback to config value or default to 'docker'
         config.runtime = runtime or config.runtime or 'docker'
-        config.max_budget_per_task = 4
+        config.max_budget_per_task = max_budget_per_task
         config.max_iterations = max_iterations
 
         # do not mount workspace

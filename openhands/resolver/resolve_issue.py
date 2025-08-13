@@ -58,6 +58,12 @@ def main() -> None:
         help='Maximum number of iterations to run.',
     )
     parser.add_argument(
+        '--max-budget-per-task',
+        type=float,
+        default=50.0,
+        help='Maximum budget per task (0.0 means no limit).',
+    )
+    parser.add_argument(
         '--issue-number',
         type=int,
         required=True,
