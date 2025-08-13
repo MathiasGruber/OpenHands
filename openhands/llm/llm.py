@@ -224,9 +224,14 @@ class LLM(RetryMixin, DebugMixin):
             )  # temperature is not supported for reasoning models
             kwargs.pop('top_p')  # reasoning model like o3 doesn't support top_p
         # Azure issue: https://github.com/All-Hands-AI/OpenHands/issues/6777
-        if self.config.model.startswith('azure') and 'gpt-5' not in self.config.model:
+        if self.config.model.startswith('azure'):
             kwargs['max_tokens'] = self.config.max_output_tokens
             kwargs.pop('max_completion_tokens')
+
+        # Fix gpt-5 issue
+        if 'gpt-5' in self.config.model:
+            kwargs['max_completion_tokens'] = self.config.max_output_tokens
+            kwargs.pop('max_tokens')
 
         # Add safety settings for models that support them
         if 'mistral' in self.config.model.lower() and self.config.safety_settings:
